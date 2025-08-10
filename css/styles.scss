@@ -1,0 +1,567 @@
+$show-fathers: false;
+
+$z-index-header: 100;
+$z-index-popover: 200;
+$z-index-modal: 300;
+$z-index-video-call: 400;
+$z-index-tooltip: 500;
+
+// ─── Paleta principal ───────────────────────────────────────────
+$color-bg-page:           #121212;
+$color-text-primary:      #ffffff;
+
+// ─── Chat & mensajes ───────────────────────────────────────────
+$color-chat-bg:           #1e1e1e;
+$color-message-bg-receiver: #32303e;
+$color-message-bg-sender:   #374452;
+$color-scrollbar-thumb:     #444444;
+
+// ─── Consola / state ──────────────────────────────────────────
+$color-console-bg:        #1e1e1e;
+$color-console-text:      #696969;
+$color-console-border:    #444444;
+
+// ─── Botones ────────────────────────────────────────────────────
+$color-btn-lessa:         #6a5acd;
+$color-btn-voice:         #1e90ff;
+$color-btn-cancel:        #555555;
+$color-btn-hover:         #ffffff20;
+
+// en styles.scss o en un partial _mixins.scss
+@mixin flex-center {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+@mixin section-colors($color) {
+  @if $show-fathers {
+    background-color: $color;
+  }
+}
+
+@mixin borde {
+  background-color: $color-console-bg;
+  border-radius: 8px;
+}
+
+@mixin text_adjustement {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  height: 100vh;
+  background-color: $color-bg-page;
+  color: $color-text-primary;
+  
+
+  .window {
+    display: flex;
+    height: 100vh;
+
+    // SIDEBAR
+    .aside {
+      display: none;
+      flex-direction: column;
+      flex-basis: 200px;
+      transition: flex-basis 0.3s ease;
+      max-width: 200px;
+
+
+      &--hidden {
+        flex-basis: 0;
+        overflow: hidden;
+      }
+
+      &__top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px;
+        height: 56px;
+
+        &__hide-btn,
+        &__new-btn {
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+        }
+      }
+
+      &__content {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        padding: 8px;
+        gap: 4px;
+      }
+    }
+
+    // APP
+    .app {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-height: 0;
+
+      // HEADER
+      .header {
+        height: 56px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        padding: 0 26px;
+        position: relative;  // Necesario para popover absoluto
+    
+        .aside-show-btn {
+          display: none; // oculto por defecto
+          margin-right: 12px;
+          font-size: 1.3rem;
+          background: none;
+          border: none;
+          cursor: pointer;
+        
+          &:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+          }
+        }
+
+        .title {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: bold;
+            flex: 1;
+        }
+    
+        .config-btn {
+            border: none;
+            background: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+    
+            &:hover {
+                background-color: rgba(0,0,0,0.1);
+            }
+        }
+    
+        .popover-menu {
+            position: absolute;
+            top: 100%; // Justo debajo del header
+            right: 16px;
+            width: 200px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            @include borde();
+            border: 1px solid $color-console-border;
+            border-radius: 8px;
+            padding: 8px;
+            display: none; // Oculto por defecto
+            z-index: $z-index-popover;
+    
+            &__option {
+                display: flex;
+                color: $color-text-primary;
+                align-items: center;
+                padding: 6px;
+                gap: 12px;
+    
+                input[type="checkbox"] {
+                    cursor: pointer;
+                }
+    
+                label {
+                    cursor: pointer;
+                    user-select: none;
+                }
+    
+                &:hover {
+                    background: $color-btn-hover;
+                    border-radius: 4px;
+                }
+            }
+    
+            &--active {
+                display: block; // Mostrar cuando está activo
+            }
+        }
+      }
+
+      // MAIN ZONE
+      .main-container {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        gap: 12px;
+        box-sizing: border-box;
+        @include section-colors(black);
+        padding: 16px 48px 16px 48px;
+        min-height: 0;
+
+
+        // Zona Azul: Chat + state/Buffer
+        .chat-row {
+          display: flex;
+          flex: 7;
+          gap: 12px;
+          @include section-colors(#e0f0ff);
+          min-height: 0;
+
+          .chat-video {
+            flex: 7;
+            display: flex;
+            background-color: $color-chat-bg;
+            border-radius: 10px;
+            min-height: 0;
+            flex-direction: column;
+
+
+            .video {
+              display: none;
+              justify-content: center; // centra horizontalmente
+              align-items: center;     // centra verticalmente
+              flex: 6;
+              border-radius: 10px 10px 0 0;
+              background: linear-gradient(to top, #000000, #1e1e1e);
+              min-height: 0;
+
+              .video-player {
+                height: 100%;
+                max-width: 100%;
+                aspect-ratio: 16/9;
+                object-fit: cover;
+              }
+
+              &--active {
+                display: flex;
+              }
+
+              
+
+            }
+
+
+            .chat {
+              flex: 4;
+              display: flex;
+              flex-direction: column;
+              overflow-y: auto;
+              min-height: 0;
+              padding: 20px;
+              
+              &::-webkit-scrollbar {
+                width: 6px;
+              }
+            
+              &::-webkit-scrollbar-thumb {
+                background-color: $color-scrollbar-thumb;
+                border-radius: 3px;
+              }
+              .chat__spacer {
+                margin-top: auto;
+              }
+              
+              .message {
+                display: flex;
+                flex-direction: row;
+                gap: 12px;
+                max-width: 70%;
+                align-self: flex-start;
+                margin-top: 15px;
+            
+                &__tts {
+                  width: 32px;
+                  min-width: 32px;
+                  display: flex;
+                  border-radius: 4px;
+                  cursor: pointer;
+                }
+            
+                &__content {
+                  flex: 1;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 12px;
+                  border-radius: 8px;
+                  padding: 16px;
+
+                  background-color: $color-message-bg-receiver;
+                  color: $color-text-primary;
+
+                }
+            
+                &__structured {
+
+                  &--simplified-mode {
+                    color: #939393;
+                    font-size: 0.95rem;
+                  }
+                  
+                  
+                }
+
+            
+                &--reverse {
+                  align-self: flex-end;
+            
+                  .message__tts {
+                    order: -1; // botón TTS a la izquierda
+                  }
+
+                  .message__content {
+                    background-color: $color-message-bg-sender;
+                  }
+                }
+              }
+              
+              .message__tts {
+                background-color: transparent;  /* fondo transparente */
+                border: none;                   /* sin borde */
+                padding: 0;                     /* sin relleno */
+                margin: 0;                      /* sin margen */
+                display: inline-flex;           /* para centrar el emoji */
+                align-items: center;
+                justify-content: center;
+                width: 1em;                     /* igual al tamaño de la letra */
+                height: 1em;                    /* igual al tamaño de la letra */
+                font-size: 1em;                 /* define tamaño del emoji */
+                cursor: pointer;                /* puntero al pasar por encima */
+              }
+              
+            }
+
+          }
+
+          .state-buffer {
+            flex: 3;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            
+
+            .state {
+              flex: 3;
+              display: flex;
+              @include flex-center();
+              @include borde();
+              
+            }
+
+            .buffer {
+              color: $color-text-primary;
+              flex: 8;
+              display: flex;
+              flex-direction: column;
+              justify-content: flex-end;
+              padding: 24px;
+              max-height: 100%;
+              overflow: auto;
+              @include borde();
+            }
+          }
+        }
+
+        // Zona Roja: Consola + Escribir
+        .console-row {
+          display: flex;
+          flex: 0.5;
+          gap: 12px;
+          @include section-colors(#ffe0e0);
+
+          .consola {
+            display: flex;
+            flex: 8;
+            @include borde();
+            border: 1px solid $color-console-border;
+            border-radius: 8px;
+            align-items: center;
+            padding: 8px;
+            color: $color-console-text;
+          }
+
+          .escribir {
+            display: none;
+/*             flex: 2;
+            background-color: $color-console-border;
+            &:hover { background-color: $color-btn-hover; }   
+            border-radius: 8px; 
+            padding: 8px;
+            @include text_adjustement();          */ 
+          }
+        }
+
+        // Zona Amarilla: LESSA + Voz
+        .buttons-row {
+          display: flex;
+          flex: 0.7;
+          gap: 12px;
+          @include section-colors(#fff5cc);
+
+          .action {
+
+            &--lessa {
+              flex: 1;
+              border: 1px solid $color-console-border;
+              &:hover { background-color: $color-btn-hover; }            
+              @include text_adjustement();
+              border-radius: 8px;
+              padding: 8px;
+              cursor: pointer;  
+              background-color: $color-btn-lessa;
+            }
+            &--voice {
+              flex: 1;
+              display: flex;
+              background-color: $color-btn-voice;
+              border: 1px solid $color-console-border;
+              &:hover { background-color: $color-btn-hover; }
+              @include text_adjustement();
+              border-radius: 8px;
+              padding: 8px;
+              cursor: pointer;
+            }
+            &--cancel {
+              flex: 1;
+              display: flex;
+              background-color: $color-btn-cancel;
+              border: 1px solid $color-console-border;
+              &:hover { background-color: $color-btn-hover; }            
+              @include text_adjustement();
+              border-radius: 8px;
+              padding: 8px;
+              cursor: pointer;  
+            }
+            &--unabled {
+              flex: 1;
+              display: flex;
+              background-color: $color-console-border;
+              border: 1px solid $color-console-border;
+              @include text_adjustement();
+              border-radius: 8px;
+              padding: 8px;
+              cursor: not-allowed;  
+            }
+            
+          }
+
+          
+        }
+      }
+    }
+  }
+}
+
+// ==================================================
+//  _state-animations.scss
+//  Animaciones de estados — migradas desde legacy
+// ==================================================
+
+// Requiere que los tokens de color ($color-...) ya estén
+// definidos antes de la importación de este partial.
+
+// ---------- Await -------------------------------------------------
+.await {
+  @include flex-center;          // ver §3 (mixin)
+  width: 50px;
+  height: 50px;
+  position: relative;
+  margin: auto;
+  flex-direction: column;
+
+
+  .await_circle {
+    width: 20px;
+    height: 20px;
+    background-color: $color-console-text;
+    border-radius: 50%;
+    margin: 0 2px;
+    // animation: awaitAnim 2s infinite;
+  }
+  .await_circle1 { 
+    // animation-delay: 0s; 
+    background-color: #6a5acd;
+  }
+  .await_circle2 { 
+    //animation-delay: 0.5s; 
+    background-color: #1e90ff;
+  }
+}
+
+@keyframes awaitAnim {
+  0% { transform: scale(1); opacity:.9; }
+  50%{ transform: scale(1.5); opacity:1; }
+  100%{transform: scale(1); opacity:.9;}
+}
+
+// ---------- Lessa (video) ----------------------------------------
+.animation_container {
+  @include flex-center;
+}
+.video_circle_record {
+  width: 15px; height: 15px;
+  background: $color-btn-lessa;
+  border-radius: 50%;
+  margin: 0 4px;
+  animation: videoRecording 1.2s ease-in-out infinite;
+}
+@keyframes videoRecording {
+  0%,100% { transform: scale(1);   opacity:.7; }
+  50%     { transform: scale(1.2); opacity:1; }
+}
+
+// ---------- Loading ----------------------------------------------
+.circle {
+  width: 12px; height: 12px;
+  background: $color-console-text;
+  border-radius: 50%;
+  margin: 0 3px;
+  animation: loadingAnim 1s ease-in-out infinite;
+}
+.circle1 { animation-delay: 0s; }
+.circle2 { animation-delay: .5s; }
+
+@keyframes loadingAnim {
+  0% { transform: scale(1); opacity:.6; }
+  50%{ transform: scale(1.5);opacity:1; }
+  100%{transform: scale(1); opacity:.6;}
+}
+
+// ---------- TTS ---------------------------------------------------
+.sound_bar {
+  width: 4px; height: 20px;
+  background: $color-btn-voice;
+  margin: 0 2px;
+  animation: ttsAnim 1s ease-in-out infinite;
+}
+.sound_bar1{animation-delay:0s;}
+.sound_bar2{animation-delay:.25s;}
+.sound_bar3{animation-delay:.5s;}
+.sound_bar4{animation-delay:.75s;}
+
+@keyframes ttsAnim{
+  0%,100%{transform:scaleY(1);}
+  50%    {transform:scaleY(1.5);}
+}
+
+// ---------- Voice -------------------------------------------------
+.voice_circle_record{
+  width:15px;height:15px;
+  background:$color-btn-voice;
+  border-radius:50%;
+  margin:0 4px;
+  animation:voiceAnim 1s ease-in-out infinite;
+}
+.voice_circle_1{animation-delay:0s;}
+.voice_circle_2{animation-delay:.2s;}
+.voice_circle_3{animation-delay:.4s;}
+
+@keyframes voiceAnim{
+  0%,100%{transform:scale(1);opacity:.7;}
+  50%    {transform:scale(1.3);opacity:1;}
+}

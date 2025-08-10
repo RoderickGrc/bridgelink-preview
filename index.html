@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>BridgeLink</title>
+<link rel="stylesheet" href="css/styles.css">
+<link rel="icon" type="image/x-icon" href="img/favicon.ico">
+</head>
+<body>
+  <div class="window" id="window">
+
+    <!-- Sidebar -->
+    <div class="aside" id="asideContainer">
+      <div class="aside__top" id="asideTop">
+        <span class="aside__top__hide-btn" id="hideAsideBtn">🟰</span>
+        <span class="aside__top__new-btn" id="newAsideBtn">💬 Nuevo</span>
+      </div>
+      <div class="aside__content" id="asideContent">
+        <div>Conversación 1</div>
+        <div>Texto conversacion...</div>
+        <div>Texto conversacion...</div>
+      </div>
+    </div>
+
+    <!-- App Main -->
+    <div class="app" id="app"> 
+      <div class="header" id="header">
+        <button class="aside-show-btn" id="showAsideBtn">🟰</button>
+        <h1 class="title">
+          BridgeLink 
+          <a href="#" id="preview-link">Preview</a>
+        </h1>
+        <button class="config-btn" id="config-btn">🛠️</button>
+        
+        <!-- Popover Menu -->
+        <div class="popover-menu" id="popover-menu">
+      <div class="popover-menu__option">
+        <input type="checkbox" id="simplified-mode-toggle" checked>
+        <label for="simplified-mode-toggle">Modo Simplificado</label>
+      </div>
+      <!-- CAMBIOS EN LAS SIGUIENTES 3 OPCIONES -->
+      <div class="popover-menu__option">
+        <input type="checkbox" id="autoplay-lessa-toggle" checked>
+        <label for="autoplay-lessa-toggle">Voz después de Mensaje LESSA</label>
+      </div>
+      <div class="popover-menu__option">
+        <input type="checkbox" id="autoplay-voice-toggle" checked>
+        <label for="autoplay-voice-toggle">Voz después de Mensaje Voz</label>
+      </div>
+      <div class="popover-menu__option">
+        <input type="checkbox" id="interface-voice-toggle" checked>
+        <label for="interface-voice-toggle">Voz de interfaz</label>
+      </div>
+        </div>
+      </div>
+        
+      <div class="main-container" id="mainContainer">
+        <!-- Zona Azul -->
+        <div class="chat-row" id="chatRow">
+          <div class="chat-video" id="chatVideo">
+            <div class="video" id="video">
+              <video class="video-player" id="video-player" autoplay playsinline></video>
+            </div>
+            <div class="chat" id="chat">
+              <div class="messages"></div>
+              <div class="chat__spacer"></div>
+            </div>
+          </div>
+          
+          <div class="state-buffer" id="stateBuffer">
+            <div class="state" id="stateContainer"></div>
+            <div class="buffer" id="buffer"></div>
+          </div>
+        </div>
+
+        <!-- Zona Roja -->
+        <div class="console-row" id="consoleRow">
+          <div class="consola" id="console">Consola</div>
+          <div class="escribir" id="escribir">Escribir Mensaje</div>
+        </div>
+
+        <!-- Zona Amarilla -->
+        <div class="buttons-row" id="buttonsRow">
+          <div class="action--lessa" id="leftBtn">Nuevo Mensaje LESSA</div>
+          <div class="action--voice" id="rightBtn">Nuevo Mensaje Voz</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="js/modules.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/backend.js"></script>
+  <script src="js/main.js"></script>
+
+  <!-- The Modal Structure -->
+  <div id="infoModal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>Sobre BridgeLink</h2>
+      <p>BridgeLink es una herramienta web creada por estudiantes de Ingeniería de Sistemas Informáticos de la Universidad de El Salvador con un propósito muy especial: facilitar la comunicación entre personas con discapacidad auditiva y personas con discapacidad visual.</p>
+      <p>Su funcionamiento es sencillo para el usuario, pero poderoso en impacto. BridgeLink puede reconocer lo que se dice en voz alta y convertirlo en texto, interpretar gestos del lenguaje de señas para mostrar su significado, y transformar mensajes escritos en voz mediante tecnología de síntesis (TTS). Todo esto se presenta en una interfaz amigable y directa, pensada para que cualquier persona pueda usarla sin complicaciones.</p>
+      <p>Con BridgeLink, la barrera entre diferentes formas de comunicarse se vuelve más pequeña, haciendo posible que más personas puedan comprenderse y expresarse con libertad.</p>
+      <p class="team-members">Rodrigo Garciaguirre - Heber Guarita - Camilo Medrano</p>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,195 @@
+// ==================================================
+// Estilos y animaciones para los estados (Legacy)
+// ==================================================
+
+// ------------------------------
+// Await State
+// ------------------------------
+.await {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+  
+    .await_circle {
+      width: 10px;
+      height: 10px;
+      background-color: $color-console-text;
+      border-radius: 50%;
+      margin: 0 2px;
+      animation: awaitAnim 1s infinite;
+    }
+  
+    .await_circle1 {
+      animation-delay: 0s;
+    }
+  
+    .await_circle2 {
+      animation-delay: 0.5s;
+    }
+  }
+  
+  @keyframes awaitAnim {
+    0% {
+      transform: scale(1);
+      opacity: 0.5;
+    }
+    50% {
+      transform: scale(1.5);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0.5;
+    }
+  }
+  
+  // ------------------------------
+  // Lessa State (Video Recording)
+  // ------------------------------
+  .animation_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .video_circle_record {
+    width: 15px;
+    height: 15px;
+    background-color: $color-btn-lessa;
+    border-radius: 50%;
+    margin: 0 4px;
+    animation: videoRecording 1.2s infinite ease-in-out;
+  }
+  
+  @keyframes videoRecording {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.7;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+  }
+  
+  // ------------------------------
+  // Loading State
+  // ------------------------------
+  .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    .circle {
+      width: 12px;
+      height: 12px;
+      background-color: $color-console-text;
+      border-radius: 50%;
+      margin: 0 3px;
+      animation: loadingAnim 1s infinite ease-in-out;
+    }
+  
+    .circle1 {
+      animation-delay: 0s;
+    }
+  
+    .circle2 {
+      animation-delay: 0.5s;
+    }
+  }
+  
+  @keyframes loadingAnim {
+    0% {
+      transform: scale(1);
+      opacity: 0.6;
+    }
+    50% {
+      transform: scale(1.5);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0.6;
+    }
+  }
+  
+  // ------------------------------
+  // TTS State
+  // ------------------------------
+  .animation_container {
+    // (Ya definido en menosa_state; se reutiliza para TTS y Voice)
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .sound_bar {
+    width: 4px;
+    height: 20px;
+    background-color: $color-btn-voice;
+    margin: 0 2px;
+    animation: ttsAnim 1s infinite ease-in-out;
+  }
+  
+  .sound_bar1 {
+    animation-delay: 0s;
+  }
+  
+  .sound_bar2 {
+    animation-delay: 0.25s;
+  }
+  
+  .sound_bar3 {
+    animation-delay: 0.5s;
+  }
+  
+  .sound_bar4 {
+    animation-delay: 0.75s;
+  }
+  
+  @keyframes ttsAnim {
+    0%, 100% {
+      transform: scaleY(1);
+    }
+    50% {
+      transform: scaleY(1.5);
+    }
+  }
+  
+  // ------------------------------
+  // Voice State
+  // ------------------------------
+  .voice_circle_record {
+    width: 15px;
+    height: 15px;
+    background-color: $color-btn-voice;
+    border-radius: 50%;
+    margin: 0 4px;
+    animation: voiceAnim 1s infinite ease-in-out;
+  }
+  
+  .voice_circle_1 {
+    animation-delay: 0s;
+  }
+  
+  .voice_circle_2 {
+    animation-delay: 0.2s;
+  }
+  
+  .voice_circle_3 {
+    animation-delay: 0.4s;
+  }
+  
+  @keyframes voiceAnim {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.7;
+    }
+    50% {
+      transform: scale(1.3);
+      opacity: 1;
+    }
+  }
+  
